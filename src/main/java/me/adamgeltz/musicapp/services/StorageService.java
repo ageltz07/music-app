@@ -24,7 +24,7 @@ public class StorageService {
 
         // Use Credentials from digital ocean
         AWSCredentialsProvider awsCredentialsProvider = new AWSStaticCredentialsProvider(
-                new BasicAWSCredentials("enterAccessKey", "enterSecretKey")
+                new BasicAWSCredentials("InsertAccessKey", "InserSecretKey")
         );
 
         space = AmazonS3ClientBuilder
@@ -37,7 +37,7 @@ public class StorageService {
     }
 
     public List<String> getSongFileNames() {
-        ListObjectsV2Result result = space.listObjectsV2("enterNameHere");
+        ListObjectsV2Result result = space.listObjectsV2("insertBucketName");
         List<S3ObjectSummary> objects = result.getObjectSummaries();
 
         // Streaming through each object in list of S3Object summaries
@@ -52,6 +52,6 @@ public class StorageService {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(file.getContentType());
         //enter bucketName
-        space.putObject(new PutObjectRequest("enterNameHere", file.getOriginalFilename(), file.getInputStream(), objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead));
+        space.putObject(new PutObjectRequest("insertBucketName", file.getOriginalFilename(), file.getInputStream(), objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead));
     }
 }
